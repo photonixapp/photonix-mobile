@@ -24,6 +24,11 @@
     },
     "android": {
       "package": "org.photonix.mobile"
+    },
+    "androidNavigationBar": {
+      "visible": true,
+      "barStyle": "light-content",
+      "backgroundColor": "#000000"
     }
   }
 }
