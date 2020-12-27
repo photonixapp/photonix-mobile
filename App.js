@@ -18,7 +18,7 @@ class HomeScreen extends React.Component {
     super(props);
     this.state = {canGoBack: false}
     this.startingUrl =
-      'http://192.168.2.125:8888/';
+      'https://demo.photonix.org/';
     this.handleBackButton = this.handleBackButton.bind(this);
   }
 

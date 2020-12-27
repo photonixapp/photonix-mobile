@@ -1,6 +1,13 @@
 # Photonix Mobile App
 
-This is the code for generating React Native apps for Android and iOS devices. We use [Expo](https://expo.io/) to make it easier to develop and make builds. If you quickly want to get set up for development you should download the [Expo client](https://expo.io/tools#client) on your device. You can then run the follow command and a QR code will then be shown which you can scan with Expo Client on your device.
+This is the code for generating React Native apps for Android and iOS devices. We use [Expo](https://expo.io/) to make it easier to develop and make builds.
+
+You'll first need to install the Expo CLI and NPM packages. If you have Yarn installed on your system run the following.
+
+    yarn global add expo-cli
+    yarn
+
+The quickest way to run the app in a development environment is to download the [Expo client](https://expo.io/tools#client) on your device. You can then run the follow command and a QR code will then be shown which you can scan with Expo Client on your device.
 
     yarn start
 
