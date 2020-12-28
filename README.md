@@ -2,7 +2,12 @@
 
 This is the code for generating React Native apps for Android and iOS devices. We use [Expo](https://expo.io/) to make it easier to develop and make builds.
 
-You'll first need to install the Expo CLI and NPM packages. If you have Yarn installed on your system run the following.
+Clone the repo if you haven't already and change into the project directory.
+
+    git clone git@github.com:damianmoore/photonix-mobile.git
+    cd photonix-mobile
+
+You'll need to install the Expo CLI and NPM packages. If you have Yarn installed on your system run the following.
 
     yarn global add expo-cli
     yarn

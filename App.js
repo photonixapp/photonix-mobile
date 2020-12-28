@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { Button, View, BackHandler, ActivityIndicator } from 'react-native';
+import { Button, View, BackHandler, ActivityIndicator, TextInput } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage'
 import { WebView } from 'react-native-webview';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
@@ -18,14 +19,18 @@ class HomeScreen extends React.Component {
   // Back button WebView interaction from here: https://stackoverflow.com/a/57441046/1417989
   constructor(props) {
     super(props);
-    this.state = {canGoBack: false, spinnerVisible: true}
+    this.state = {server: null, canGoBack: false, spinnerVisible: true}
     this.startingUrl =
-      'https://demo.photonix.org/';
+      'http://192.168.2.125:8888/';
     this.handleBackButton = this.handleBackButton.bind(this);
   }
 
   componentDidMount() {
     BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+    this.retrieveServer()
+      .then((server)=> {
+        if(server) this.setState({server: server})
+      })
   }
 
   componentWillUnmount() {
@@ -40,6 +45,18 @@ class HomeScreen extends React.Component {
       return false;
     }
   };
+
+  async retrieveServer() {
+    try {
+      const server = await AsyncStorage.getItem('server');
+      if (server !== null) {
+        console.log("Server: ", server);
+        return server;
+      }
+    } catch (error) {
+      console.log("Error while storing the server");
+    }
+  }
 
   render() {
     if (!this.state.isReady) {
@@ -59,40 +76,46 @@ class HomeScreen extends React.Component {
           </View>
         ) : null}
 
-        <WebView
-          source={{ uri: this.startingUrl }}
-          sharedCookiesEnabled={true}
-          applicationNameForUserAgent={'PhotonixMobileApp/0.0.1'}
-          startInLoadingState={true}
-          onLoadStart={() => this.setState({ spinnerVisible: true })}
-          onLoadEnd={() => this.setState({ spinnerVisible: false })}
-          ref={webView => (this.webView = webView)}
-          injectedJavaScript={`
-          (function() {
-            function wrap(fn) {
-              return function wrapper() {
-                var res = fn.apply(this, arguments);
-                window.ReactNativeWebView.postMessage('navigationStateChange');
-                return res;
+        {this.state.server &&
+          <WebView
+            source={{ uri: this.state.server }}
+            sharedCookiesEnabled={true}
+            applicationNameForUserAgent={'PhotonixMobileApp/0.0.1'}
+            startInLoadingState={true}
+            onLoadStart={() => this.setState({ spinnerVisible: true })}
+            onLoadEnd={() => this.setState({ spinnerVisible: false })}
+            ref={webView => (this.webView = webView)}
+            scalesPageToFit={false}
+            bounces={false}
+            scrollEnabled={false}
+            domStorageEnabled={true}
+            injectedJavaScript={`
+            (function() {
+              function wrap(fn) {
+                return function wrapper() {
+                  var res = fn.apply(this, arguments);
+                  window.ReactNativeWebView.postMessage('navigationStateChange');
+                  return res;
+                }
               }
-            }
-            history.pushState = wrap(history.pushState);
-            history.replaceState = wrap(history.replaceState);
-            window.addEventListener('popstate', function() {
-              window.ReactNativeWebView.postMessage('navigationStateChange');
-            });
-          })();
-          true;
-          `}
-          onMessage={({ nativeEvent: state }) => {
-            if (state.data === 'navigationStateChange') {
-              // Navigation state updated, can check state.canGoBack, etc.
-              this.setState({
-                canGoBack: state.canGoBack
+              history.pushState = wrap(history.pushState);
+              history.replaceState = wrap(history.replaceState);
+              window.addEventListener('popstate', function() {
+                window.ReactNativeWebView.postMessage('navigationStateChange');
               });
-            }
-          }}
-        />
+            })();
+            true;
+            `}
+            onMessage={({ nativeEvent: state }) => {
+              if (state.data === 'navigationStateChange') {
+                // Navigation state updated, can check state.canGoBack, etc.
+                this.setState({
+                  canGoBack: state.canGoBack
+                });
+              }
+            }}
+          />
+        }
       </>
     );
   }
@@ -103,10 +126,25 @@ class HomeScreen extends React.Component {
   }
 }
 
-function NotificationsScreen({ navigation }) {
+function ConnectScreen({ navigation }) {
+  const [value, onChangeText] = React.useState('https://demo.photonix.org/');
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Button style={{ width: 100 }} onPress={() => navigation.goBack()} title="Go back home" />
+      <TextInput
+        style={{ width: 250, height: 40, borderColor: 'gray', borderWidth: 1, backgroundColor: '#ffffff', padding: 10 }}
+        onChangeText={text => onChangeText(text)}
+        value={value}
+        autoCorrect={false}
+      />
+      {/* <Button style={{ width: 250 }} onPress={() => navigation.goBack()} title="Go back home" /> */}
+      <Button style={{ width: 250 }} onPress={() => {
+        console.log(value)
+        AsyncStorage.setItem('server', value)
+          .then(value => {
+            console.log('saved')
+            // return (value);
+          })
+      }} title="Save" />
     </View>
   );
 }
@@ -118,7 +156,7 @@ export default function App() {
     <NavigationContainer theme={MyTheme}>
       <Drawer.Navigator initialRouteName="Home">
         <Drawer.Screen name="Home" component={HomeScreen} />
-        <Drawer.Screen name="Notifications" component={NotificationsScreen} />
+        <Drawer.Screen name="Connect to server" component={ConnectScreen} />
       </Drawer.Navigator>
     </NavigationContainer>
   );
