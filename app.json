@@ -5,6 +5,7 @@
     "version": "0.0.1",
     "orientation": "default",
     "icon": "./assets/icon.png",
+    "description": "Organize and access your photos. Client application to be used in conjection with a Photonix server installation",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",

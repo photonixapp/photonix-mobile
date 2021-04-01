@@ -15,14 +15,14 @@ import styles from '../styles'
 
 export default ConnectScreen = ({ navigation }) => {
   const [value, onChangeText] = React.useState('https://demo.photonix.org/')
-  let [fontsLoaded] = useFonts({
+  const [fontsLoaded] = useFonts({
     Nunito: require('../assets/fonts/Nunito.ttf'),
   })
 
   useFocusEffect(
     React.useCallback(() => {
       AsyncStorage.getItem('server').then((value) => {
-        onChangeText(value)
+        value && onChangeText(value)
       })
       return () => {}
     }, [navigation])
@@ -54,9 +54,9 @@ export default ConnectScreen = ({ navigation }) => {
             </Text>
             <Text style={{ ...styles.baseText, marginBottom: 50 }}>
               Please enter your server address and ensure you include the
-              correct protocol (http:// or https://) and port number (if it's
+              correct protocol (http:// or https://) and port number (if it’s
               other than 80). If you have been using localhost to access
-              Photonix in your browser then you will need to find the machine's
+              Photonix in your browser then you will need to find the machine’s
               external IP address.
             </Text>
             <TextInput
@@ -73,49 +73,41 @@ export default ConnectScreen = ({ navigation }) => {
             />
             {/* <Button style={{ width: 250 }} onPress={() => navigation.goBack()} title="Go back home" /> */}
             <Button
-              containerViewStyle={{
-                width: '100%',
-                marginLeft: 0,
-              }}
               style={{
                 fontFamily: 'Nunito',
               }}
               onPress={() => {
-                console.log(value)
                 AsyncStorage.setItem('server', value).then(() => {
-                  console.log('saved')
                   navigation.navigate('Photos')
                 })
               }}
               title="Connect"
               color="rgb(0, 168, 161)"
             />
-            {/* <Button
-        style={{ width: 250 }}
-        onPress={() => {
-          AsyncStorage.setItem('server', 'http://192.168.1.64:8888/').then(
-            (value) => {
-              console.log('saved')
-              navigation.navigate('Photos')
-              // return (value);
-            }
-          )
-        }}
-        title="Connect to LAN"
-      />
-      <Button
-        style={{ width: 250 }}
-        onPress={() => {
-          AsyncStorage.setItem('server', 'https://demo.photonix.org/').then(
-            (value) => {
-              console.log('saved')
-              navigation.navigate('Photos', { reload: true })
-              // return (value);
-            }
-          )
-        }}
-        title="Connect to demo"
-      /> */}
+            <Button
+              onPress={() => {
+                AsyncStorage.setItem(
+                  'server',
+                  'http://192.168.1.64:8888/'
+                ).then((value) => {
+                  navigation.navigate('Photos')
+                  // return (value);
+                })
+              }}
+              title="Connect to LAN"
+            />
+            <Button
+              onPress={() => {
+                AsyncStorage.setItem(
+                  'server',
+                  'https://demo.photonix.org/'
+                ).then((value) => {
+                  navigation.navigate('Photos', { reload: true })
+                  // return (value);
+                })
+              }}
+              title="Connect to demo"
+            />
           </>
         )}
       </ScrollView>
