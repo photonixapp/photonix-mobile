@@ -2,7 +2,7 @@
   "expo": {
     "name": "Photonix",
     "slug": "photonix-mobile",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "orientation": "default",
     "icon": "./assets/icon.png",
     "description": "Organize and access your photos. Client application to be used in conjunction with a Photonix server installation.",
