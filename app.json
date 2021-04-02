@@ -20,7 +20,7 @@
       "bundleIdentifier": "org.photonix.mobile"
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/icon.png"
     },
     "android": {
       "package": "org.photonix.mobile"
