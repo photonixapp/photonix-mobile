@@ -26,6 +26,9 @@ export default HomeScreen = ({ navigation }) => {
         setLoading(true)
         setError(null)
       }
+      if (!server) {
+        navigation.navigate('Connect to server')
+      }
       setServer(server)
     })
   }
