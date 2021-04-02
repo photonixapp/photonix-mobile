@@ -21,6 +21,11 @@ If you have virtual devices/simulators for Android or iOS on your computer, you 
     yarn android
     yarn ios
 
+## Publishing
+
+### Google Play
+
+    expo build:android -t app-bundle
 
 ## What's in the app?
 
