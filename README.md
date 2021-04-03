@@ -23,9 +23,19 @@ If you have virtual devices/simulators for Android or iOS on your computer, you 
 
 ## Publishing
 
+Before building a new version for Android or iOS, icrement the version number `expo.version` in `app.json`.
+
 ### Google Play
 
+Increment `expo.android.versionCode` in `app.json`.
+
     expo build:android -t app-bundle
+
+### Apple App Store
+
+Increament `expo.ios.buildNumber` in `app.json`.
+
+    expo build:ios
 
 ## What's in the app?
 

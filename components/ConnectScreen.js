@@ -84,7 +84,7 @@ export default ConnectScreen = ({ navigation }) => {
               title="Connect"
               color="rgb(0, 168, 161)"
             />
-            <Button
+            {/* <Button
               onPress={() => {
                 AsyncStorage.setItem(
                   'server',
@@ -107,7 +107,7 @@ export default ConnectScreen = ({ navigation }) => {
                 })
               }}
               title="Connect to demo"
-            />
+            /> */}
           </>
         )}
       </ScrollView>
