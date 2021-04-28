@@ -23,7 +23,7 @@ If you have virtual devices/simulators for Android or iOS on your computer, you 
 
 ## Publishing
 
-Before building a new version for Android or iOS, icrement the version number `expo.version` in `app.json`.
+Before building a new version for Android or iOS, increment the version number `expo.version` in `app.json`.
 
 ### Google Play
 
@@ -35,7 +35,7 @@ Go to Expo page URL shown in the terminal to download `.aab` file when built.
 
 ### Apple App Store
 
-Increament `expo.ios.buildNumber` in `app.json`.
+Increment `expo.ios.buildNumber` in `app.json`.
 
     expo build:ios
 
