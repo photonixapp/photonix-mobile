@@ -27,4 +27,8 @@ export default styles = StyleSheet.create({
     marginBottom: 40,
     fontSize: 25,
   },
+  content: {
+    flex: 1,
+    justifyContent: 'flex-end',
+  },
 })

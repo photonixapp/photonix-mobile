@@ -7,6 +7,7 @@ import {
   Linking,
   SafeAreaView,
   ScrollView,
+  View,
 } from 'react-native'
 import AsyncStorage from '@react-native-community/async-storage'
 import { useFonts } from 'expo-font'
@@ -32,7 +33,7 @@ export default ConnectScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView style={styles.scrollView}>
+      <ScrollView style={styles.scrollView} contentContainerStyle={{flexGrow: 1}}>
         {fontsLoaded && (
           <>
             <Text style={styles.titleText}>Welcome to Photonix</Text>
@@ -59,6 +60,7 @@ export default ConnectScreen = ({ navigation }) => {
               Photonix in your browser then you will need to find the machine’s
               external IP address.
             </Text>
+            <View style={styles.content}>
             <TextInput
               style={{
                 borderWidth: 0,
@@ -84,6 +86,7 @@ export default ConnectScreen = ({ navigation }) => {
               title="Connect"
               color="rgb(0, 168, 161)"
             />
+            </View>
             {/* <Button
               onPress={() => {
                 AsyncStorage.setItem(
