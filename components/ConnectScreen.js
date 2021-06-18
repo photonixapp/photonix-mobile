@@ -7,6 +7,7 @@ import {
   Linking,
   SafeAreaView,
   ScrollView,
+  KeyboardAvoidingView,
 } from 'react-native'
 import AsyncStorage from '@react-native-community/async-storage'
 import { useFonts } from 'expo-font'
@@ -15,6 +16,9 @@ import styles from '../styles'
 
 export default ConnectScreen = ({ navigation }) => {
   const [value, onChangeText] = React.useState('https://demo.photonix.org/')
+  const keyBoardBehavior = {
+    behavior: 'padding',
+  };
   const [fontsLoaded] = useFonts({
     Nunito: require('../assets/fonts/Nunito.ttf'),
   })
@@ -33,6 +37,7 @@ export default ConnectScreen = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollView}>
+      <KeyboardAvoidingView behavior={keyBoardBehavior.behavior}>
         {fontsLoaded && (
           <>
             <Text style={styles.titleText}>Welcome to Photonix</Text>
@@ -110,6 +115,7 @@ export default ConnectScreen = ({ navigation }) => {
             /> */}
           </>
         )}
+      </KeyboardAvoidingView>
       </ScrollView>
     </SafeAreaView>
   )
