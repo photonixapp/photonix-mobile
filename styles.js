@@ -11,7 +11,7 @@ export default styles = StyleSheet.create({
     width: '100%',
   },
   baseText: {
-    fontFamily: 'Nunito',
+    // fontFamily: 'Nunito',
     color: '#ffffff',
     textAlign: 'left',
     width: '100%',
@@ -19,12 +19,24 @@ export default styles = StyleSheet.create({
     marginBottom: 20,
   },
   titleText: {
-    fontFamily: 'Nunito',
+    // fontFamily: 'Nunito',
     color: '#ffffff',
     textAlign: 'left',
     width: '100%',
     paddingHorizontal: 20,
     marginBottom: 40,
     fontSize: 25,
+  },
+  checkboxContainer: {
+    flexDirection: "row",
+    marginBottom: 20,
+  },
+  checkbox: {
+    alignSelf: "center",
+  },
+  checkBoxlabel: {
+    // fontFamily: 'Nunito',
+    color: '#ffffff',
+    margin: 8,
   },
 })
